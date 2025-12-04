@@ -1,22 +1,7 @@
-/* ====== СКРЫТЬ СКРОЛЛБАР ====== */
-
-/* Chrome, Edge, Safari */
-::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-}
-
-/* Firefox */
-html {
-    scrollbar-width: none;
-}
-
-/* IE, старый Edge */
-body {
-    -ms-overflow-style: none;
-}
-
 /* ===== RESET & BASE STYLES ===== */
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -54,7 +39,12 @@ img {
     height: auto;
 }
 
+
+
 /* ===== TYPOGRAPHY ===== */
+
+
+
 h1, h2, h3, .title {
     font-weight: 600;
     line-height: 1.2;
@@ -79,6 +69,64 @@ h3 {
     text-align: center;
 }
 
+
+
+/* ===== SCROLLBAR ===== */
+
+
+
+/* Скрытие во всех браузерах */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* Firefox */
+html {
+    scrollbar-width: none;
+}
+
+/* IE, старый Edge */
+body {
+    -ms-overflow-style: none;
+}
+
+
+/* Кастомный скроллбар (пока не используется) */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+
+/* ===== UTILITY CLASSES ===== */
+
+
+
+.blur {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+}
+
 .container-message {
     position: absolute;
     top: 50%;
@@ -93,35 +141,16 @@ h3 {
     border-radius: 10px;
 }
 
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar {
-    width: 6px;
+.wrapper-content {
+    position: relative;
 }
 
-::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
-}
 
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-/* ===== UTILITY CLASSES ===== */
-.blur {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 10px;
-}
-
-.disabled {
-    opacity: 0.5;
-    cursor: default;
-    pointer-events: none;
-}
 
 /* ===== NOTIFICATION ===== */
+
+
+
 .notification {
     position: fixed;
     top: 100px;
@@ -144,7 +173,12 @@ h3 {
     transform: translate(-50%, 0);
 }
 
+
+
 /* ===== HEADER ===== */
+
+
+
 header {
     position: fixed;
     top: 0;
@@ -154,9 +188,6 @@ header {
     background-color: #fff;
 }
 
-.wrapper-content {
-    position: relative;
-}
 
 /* ----- Navbar ----- */
 .navbar {
@@ -204,6 +235,7 @@ header {
     color: var(--accent);
 }
 
+
 /* ----- Brand/Logo ----- */
 .brand {
     position: absolute;
@@ -228,6 +260,7 @@ header {
 .brand h1 a:hover {
     color: var(--accent);
 }
+
 
 /* ----- Profile & Settings ----- */
 .profile,
@@ -262,11 +295,17 @@ header {
     cursor: pointer;
 }
 
+
+
 /* ===== MAIN CONTENT ===== */
+
+
+
 main {
     padding: 80px 0 100px;
     min-height: calc(100vh - 150px);
 }
+
 
 /* ----- Categories Carousel ----- */
 .wrapper-carousel {
@@ -354,6 +393,7 @@ main {
     text-align: center;
     padding: 0 15px;
 }
+
 
 /* ----- Carousel Dots ----- */
 .dots {
@@ -465,7 +505,12 @@ main {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
+
+
 /* ===== FOOTER ===== */
+
+
+
 footer {
     width: 100%;
     min-height: 150px;
