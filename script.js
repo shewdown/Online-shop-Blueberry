@@ -1,3 +1,19 @@
+function showNotification(message, duration = 3000) {
+    const notification = document.getElementById('notification');
+    const messageEl = notification.querySelector('.notification-message');
+    
+    // Устанавливаем сообщение и тип
+    messageEl.textContent = message;
+    
+    // Показываем
+    notification.classList.add('show');
+    
+    // Скрываем через duration миллисекунд
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, duration);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // ============================================================

@@ -9,12 +9,11 @@
     padding: 50px;
     width: auto;
     height: auto;
-    border: 0 solid black;
     border-radius: 20px;
     transition: all 300ms ease-in-out;
     pointer-events: none;
     opacity: 0;
-    box-shadow: 0 0 10px rgba(149, 117, 255, 1)
+    box-shadow: 0 0 10px rgba(58, 212, 255, 1)
 }
 
 /* ----- Form active ----- */
@@ -94,7 +93,7 @@
 
 /* ----- Field 'login' ----- */
 #form-reg .field.login {
-    margin-top: 80px;
+    margin-top: 60px;
 }
 
 /* ----- Field 'password' ----- */
@@ -119,24 +118,35 @@
 
 /* ----- Button submit ----- */
 #form-reg .submit-btn {
-    margin: 80px auto 0;
+    margin: 60px auto 0;
 }
 
 /* ----- Hover Button submit ----- */
 .submit-btn:hover {
     background-color: black;
     color: white;
-    box-shadow: 0 0 10px rgba(149, 117, 255, 1)
+    box-shadow: 0 0 10px rgba(58, 212, 255, 1)
 }
 
 .text-under-submit {
-    margin-top: 7px;
+    margin-top: 10px;
     text-align: center;
     font-size: 14px;
     font-weight: 400;
 }
 
-.text-under-submit strong {
+.text-forgot-password {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.text-under-submit strong, .text-forgot-password strong {
     font-weight: 600;
     cursor: pointer;
+}
+
+.text-under-submit strong:hover, .text-forgot-password strong:hover {
+    text-decoration: underline;
 }
