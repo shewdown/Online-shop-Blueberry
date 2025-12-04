@@ -19,49 +19,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ============================================================
-    // Функция полной инициализации карусели
+    // Функция инициализации карусели
     // ============================================================
     function initCarousel() {
-
-        // -----------------------------
-        // Поиск элементов
-        // -----------------------------
         const carousel = document.querySelector(".categories");
         const cards = document.querySelectorAll(".category");
         const btnLeft = document.querySelector(".to-left");
         const btnRight = document.querySelector(".to-right");
         const dotsContainer = document.querySelector(".dots");
 
-        // Если карусели НЕТ — выходим (страница без неё)
-        if (!carousel || !cards.length || !btnLeft || !btnRight || !dotsContainer) {
-            return;
-        }
+        if (!carousel || !cards.length || !btnLeft || !btnRight || !dotsContainer) return;
 
-        // -----------------------------
-        // Константы
-        // -----------------------------
         const CARD_WIDTH = 300;
         const GAP = 15;
         const ITEM_WIDTH = CARD_WIDTH + GAP;
         const GROUP_SIZE = 3;
-
         const AUTO_SCROLL_DELAY = 5000;
         const INACTIVITY_DELAY = 3000;
 
         let autoScrollInterval = null;
         let inactivityTimeout = null;
-
         let dots = [];
 
-        // -----------------------------
-        // Функции
-        // -----------------------------
         function scrollToIndex(index) {
-            const targetScroll = index * ITEM_WIDTH;
-            carousel.scrollTo({
-                left: targetScroll,
-                behavior: "smooth"
-            });
+            carousel.scrollTo({ left: index * ITEM_WIDTH, behavior: "smooth" });
         }
 
         function getCurrentIndex() {
@@ -69,10 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function createDots() {
-            dotsContainer.innerHTML = ""; // очищаем при каждом init
-
+            dotsContainer.innerHTML = "";
             const dotsCount = Math.ceil(cards.length / GROUP_SIZE);
-
             for (let i = 0; i < dotsCount; i++) {
                 const dot = document.createElement("div");
                 dot.classList.add("dot");
@@ -80,49 +59,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 dot.addEventListener("click", () => {
                     let targetIndex = i * GROUP_SIZE;
-
-                    if (i === dotsCount - 1) {
-                        targetIndex = cards.length - GROUP_SIZE;
-                    }
-
+                    if (i === dotsCount - 1) targetIndex = cards.length - GROUP_SIZE;
                     scrollToIndex(targetIndex);
                     resetInactivityTimer();
                 });
 
                 dotsContainer.appendChild(dot);
             }
-
             dots = document.querySelectorAll(".dot");
         }
 
         function updateUI() {
             const currentIndex = getCurrentIndex();
             const dotsCount = dots.length;
-
             let activeDotIndex = Math.floor(currentIndex / GROUP_SIZE);
-
             if (currentIndex >= cards.length - GROUP_SIZE && dotsCount > 0) {
                 activeDotIndex = dotsCount - 1;
             }
-
-            dots.forEach((dot, index) => {
-                dot.classList.toggle("active", index === activeDotIndex);
-            });
-
+            dots.forEach((dot, index) => dot.classList.toggle("active", index === activeDotIndex));
             const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-
             btnLeft.classList.toggle("disabled", carousel.scrollLeft <= 5);
             btnRight.classList.toggle("disabled", carousel.scrollLeft >= maxScroll - 5);
         }
 
         function performAutoScroll() {
             const isEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10;
-
-            if (isEnd) {
-                scrollToIndex(0);
-            } else {
-                scrollToIndex(getCurrentIndex() + 1);
-            }
+            scrollToIndex(isEnd ? 0 : getCurrentIndex() + 1);
         }
 
         function startAutoScroll() {
@@ -131,10 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function stopAutoScroll() {
-            if (autoScrollInterval) {
-                clearInterval(autoScrollInterval);
-                autoScrollInterval = null;
-            }
+            if (autoScrollInterval) clearInterval(autoScrollInterval);
+            autoScrollInterval = null;
         }
 
         function resetInactivityTimer() {
@@ -143,51 +103,36 @@ document.addEventListener("DOMContentLoaded", () => {
             inactivityTimeout = setTimeout(startAutoScroll, INACTIVITY_DELAY);
         }
 
-        // -----------------------------
-        // Навешивание событий
-        // -----------------------------
-
-        btnLeft.onclick = () => {
-            let newIndex = getCurrentIndex() - GROUP_SIZE;
-            if (newIndex < 0) newIndex = 0;
-            scrollToIndex(newIndex);
-            resetInactivityTimer();
-        };
-
-        btnRight.onclick = () => {
-            const currentIndex = getCurrentIndex();
-            let newIndex = currentIndex + GROUP_SIZE;
-
-            const maxScrollIndex = cards.length - GROUP_SIZE;
-            if (newIndex > maxScrollIndex) newIndex = maxScrollIndex;
-
-            scrollToIndex(newIndex);
-            resetInactivityTimer();
+        btnLeft.onclick = () => { scrollToIndex(Math.max(getCurrentIndex() - GROUP_SIZE, 0)); resetInactivityTimer(); };
+        btnRight.onclick = () => { 
+            scrollToIndex(Math.min(getCurrentIndex() + GROUP_SIZE, cards.length - GROUP_SIZE)); 
+            resetInactivityTimer(); 
         };
 
         carousel.addEventListener("scroll", updateUI);
-
-        ["mousedown", "wheel", "touchstart", "keydown", "click"].forEach(evt => {
-            carousel.addEventListener(evt, resetInactivityTimer, { passive: true });
-        });
-
+        ["mousedown", "wheel", "touchstart", "keydown", "click"].forEach(evt => carousel.addEventListener(evt, resetInactivityTimer, { passive: true }));
         btnLeft.addEventListener("mouseenter", resetInactivityTimer);
         btnRight.addEventListener("mouseenter", resetInactivityTimer);
 
-        // -----------------------------
-        // Стартовая инициализация
-        // -----------------------------
         createDots();
         updateUI();
         resetInactivityTimer();
     }
 
     // ============================================================
-    // ИНИЦИАЛИЗАЦИЯ: 1) стартовая, 2) при переходах Barba
+    // ИНИЦИАЛИЗАЦИЯ
     // ============================================================
-    initCarousel();
-
-    barba.hooks.afterEnter(() => {
+    function initAll() {
         initCarousel();
+        if (typeof window.initAuth === 'function') window.initAuth();
+    }
+
+    // Первая загрузка
+    initAll();
+
+    // После переходов Barba
+    barba.hooks.afterEnter(() => {
+        initAll();
     });
+
 });
