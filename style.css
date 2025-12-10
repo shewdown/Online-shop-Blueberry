@@ -10,7 +10,7 @@
 }
 
 :root {
-    --accent: #3ad4ff;
+    --primary: #3ad4ff;
     --text-dark: #323232;
     --text-light: rgba(0, 0, 0, 0.75);
     --shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
@@ -25,6 +25,8 @@ body {
     font-family: 'Inter', sans-serif;
     color: #000;
     background-color: #fff;
+    min-width: 100vh;
+    min-width: 100dvh;
 }
 
 a {
@@ -118,7 +120,6 @@ body {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-radius: 10px;
 }
 
 .disabled {
@@ -184,15 +185,15 @@ header {
     top: 0;
     left: 0;
     width: 100%;
+    height: 80px;
     z-index: 100;
     background-color: #fff;
 }
 
-
 /* ----- Navbar ----- */
 .navbar {
     height: 80px;
-    width: 650px;
+    width: clamp(37.5rem, 26.339rem + 14.881vw, 40.625rem);
     margin: 0 auto;
     position: relative;
 }
@@ -203,7 +204,7 @@ header {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 120%;
+    width: 115%;
     height: 2px;
     background-color: #000;
     border-radius: 5px;
@@ -232,14 +233,14 @@ header {
 
 .navbar ul li a:hover,
 .navbar ul li.selected a {
-    color: var(--accent);
+    color: var(--primary);
 }
 
 
 /* ----- Brand/Logo ----- */
-.brand {
+.brand-v1, .brand-v2 {
     position: absolute;
-    left: 30px;
+    left: 0;
     top: 0;
     height: 100%;
     display: flex;
@@ -247,52 +248,165 @@ header {
     gap: -15px;
 }
 
-.brand img {
+.brand-v1 img, .brand-v2 img {
     height: 80px;
     width: 80px;
     margin-top: -6px;
 }
 
-.brand h1 {
+.brand-v1 h1, .brand-v2 h1 {
     margin-left: -15px;
 }
 
-.brand h1 a:hover {
-    color: var(--accent);
+.brand-v1 h1 a:hover, .brand-v2 h1 a:hover {
+    color: var(--primary);
 }
 
 
 /* ----- Profile & Settings ----- */
 .profile,
-.settings {
+.settings-1,
+.settings-2 {
     position: absolute;
     top: 0;
+    right: 30px;
     height: 100%;
     display: flex;
     align-items: center;
 }
 
 .profile {
-    right: 90px;
+    right: 80px;
 }
 
 .profile a:hover {
-    color: var(--accent);
+    color: var(--primary);
 }
 
-.settings {
-    right: 40px;
-}
-
-.settings img {
+.settings-1 img,
+.settings-2 img {
     height: 25px;
     width: 25px;
-    transition: var(--transition);
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
 }
 
-.settings img:hover {
+.settings-1 img:hover,
+.settings-2 img:hover {
     transform: rotate(-90deg);
-    cursor: pointer;
+}
+
+
+/* ----- Отключение элементов ----- */
+.burger-menu, .close-sidebar, .brand-v2, .settings-2 {
+    display: none; 
+}
+
+
+@media screen and (max-width: 1200px) {
+    header {
+        height: 65px;
+    }
+    .brand-v1, .settings-1 {
+        display: none;
+    }
+    .brand-v2 {
+        display: flex;
+    }
+    .navbar {
+        margin: 0;
+        width: 100%;
+        height: 65px;
+    }
+    .burger-menu {
+        position: absolute;
+        top: 0;
+        right: 30px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    .burger-menu img {
+        height: 25px;
+        width: 25px;
+        cursor: pointer;
+        transition: all 200ms ease-in-out;
+    }
+    .navbar::after { display: none; }
+    .navbar #sidebar {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        right: -300px;
+        width: 300px;
+        height: 100vh;
+        height: 100dvh;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: flex-start;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px 30px;
+        gap: 20px;
+        border-radius: 0;
+        transition: all 200ms ease-in-out;
+    }
+    .navbar #sidebar.show {
+        right: 0;
+    }
+    .navbar #sidebar li:not(.selected):hover { transform: translateX(3px); }
+    .overlay-sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        z-index: 999;
+        background-color: rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: var(--transition);
+        pointer-events: none;
+    }
+    .overlay-sidebar.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .settings-2 {
+        position: absolute;
+        display: block;
+        height: 25px;
+        width: 25px;
+        right: 22.5px;
+        top: 65px;
+    }
+    .close-sidebar {
+        display: block;
+        position: absolute;
+        right: 25px;
+    }
+    .close-sidebar img {
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+        transition: all 200ms ease-in-out;
+    }
+    .close-sidebar img:hover {
+        transform: rotate(-90deg);
+    }
+    .brand-v2 h1 {
+        font-size: 24px;
+        margin-left: -10px;
+    }
+    .brand-v2 img {
+        width: 60px;
+        height: 60px;
+        margin-top: -4px;
+    }
+    .profile a {
+        font-size: 20px;
+    }
 }
 
 
@@ -303,6 +417,7 @@ header {
 
 main {
     padding: 80px 0 100px;
+    width: 100%;
     min-height: calc(100vh - 150px);
 }
 
@@ -415,7 +530,7 @@ main {
 }
 
 .dot.active {
-    background: var(--accent);
+    background: var(--primary);
     width: 30px;
     border-radius: 5px;
 }
@@ -484,7 +599,7 @@ main {
 .buy-btn:hover {
     background-color: #000;
     color: #fff;
-    box-shadow: 0 0 10px var(--accent);
+    box-shadow: 0 0 10px var(--primary);
 }
 
 .product-cena {
@@ -515,7 +630,7 @@ footer {
     width: 100%;
     min-height: 150px;
     background-color: #000;
-    box-shadow: 0 0 10px var(--accent);
+    box-shadow: 0 0 10px var(--primary);
     color: #fff;
     display: flex;
     align-items: center;
@@ -532,7 +647,7 @@ footer::before {
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
     animation: slide 3s linear infinite;
 }
 
@@ -562,12 +677,12 @@ footer::before {
 .footer-logo img {
     height: 40px;
     width: 40px;
-    filter: drop-shadow(0 0 5px var(--accent));
+    filter: drop-shadow(0 0 5px var(--primary));
 }
 
 .footer-logo h3 {
     font-size: 24px;
-    background: linear-gradient(90deg, #fff, var(--accent));
+    background: linear-gradient(90deg, #fff, var(--primary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -580,7 +695,7 @@ footer::before {
 }
 
 .footer-credits strong {
-    color: var(--accent);
+    color: var(--primary);
     font-weight: 600;
     text-shadow: 0 0 8px rgba(58, 212, 255, 0.5);
 }
@@ -604,7 +719,7 @@ footer::before {
 }
 
 .footer-social a:hover {
-    background: var(--accent);
+    background: var(--primary);
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(58, 212, 255, 0.4);
 }

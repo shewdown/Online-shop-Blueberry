@@ -79,6 +79,8 @@
     opacity: 1;
 }
 
+/* ----- LOG ----- */
+
 /* ----- Field 'login' ----- */
 #form-log .field.login {
     margin-top: 80px;
@@ -89,7 +91,7 @@
     margin-top: 15px;
 }
 
-/* ----- Reg ----- */
+/* ----- REG ----- */
 
 /* ----- Field 'login' ----- */
 #form-reg .field.login {
@@ -116,12 +118,12 @@
     transition: all 300ms ease-in-out;
 }
 
-/* ----- Button submit ----- */
+/* ----- Button submit REG ----- */
 #form-reg .submit-btn {
     margin: 60px auto 0;
 }
 
-/* ----- Hover Button submit ----- */
+/* ----- Button submit:hover ----- */
 .submit-btn:hover {
     background-color: black;
     color: white;
@@ -142,11 +144,13 @@
     font-weight: 400;
 }
 
-.text-under-submit strong, .text-forgot-password strong {
+.text-under-submit strong, 
+.text-forgot-password strong {
     font-weight: 600;
     cursor: pointer;
 }
 
-.text-under-submit strong:hover, .text-forgot-password strong:hover {
+.text-under-submit strong:hover,
+.text-forgot-password strong:hover {
     text-decoration: underline;
 }
