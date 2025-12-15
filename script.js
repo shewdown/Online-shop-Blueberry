@@ -16,24 +16,17 @@ function showNotification(message, duration = 3000) {
 
 function openSidebar() {
     const sidebar = document.getElementById('sidebar');
+    const overlay = document.querySelector('.overlay-sidebar');
     sidebar.classList.add('show');
-    openOverlay();
+    overlay.classList.add('show');
 }
 
 function closeSidebar() {
     const sidebar = document.getElementById('sidebar');
+    const overlay = document.querySelector('.overlay-sidebar');
     sidebar.classList.remove('show');
-    closeOverlay();
-}
-
-function openOverlay() {
-    const overlay = document.querySelector('.overlay-sidebar');
-    overlay.classList.add('show');
-}
-
-function closeOverlay() {
-    const overlay = document.querySelector('.overlay-sidebar');
     overlay.classList.remove('show');
+    
 }
 
 document.addEventListener("DOMContentLoaded", () => {
