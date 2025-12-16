@@ -61,8 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!carousel || !cards.length || !btnLeft || !btnRight || !dotsContainer) return;
 
-        const CARD_WIDTH = 300;
-        const GAP = 15;
+        const CARD_WIDTH = cards[0].getBoundingClientRect().width;
+        const GAP = parseFloat(getComputedStyle(carousel).gap);
         const ITEM_WIDTH = CARD_WIDTH + GAP;
         const GROUP_SIZE = 3;
         const AUTO_SCROLL_DELAY = 5000;

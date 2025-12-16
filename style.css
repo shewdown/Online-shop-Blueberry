@@ -12,6 +12,13 @@
     --text-light: rgba(0, 0, 0, 0.75);
     --shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
     --transition: all 300ms ease-in-out;
+    
+    /* carousel */
+    --carousel-max-width: 980px;
+    --carousel-padding: 25px;
+    --category-width: 300px;
+    --category-height: 150px;
+    --carousel-gap: 15px;
 }
 html {
     scroll-behavior: smooth;
@@ -251,17 +258,18 @@ main {
 /* ----- Categories Carousel ----- */
 .wrapper-carousel {
     position: relative;
-    width: 980px;
+    max-width: var(--carousel-max-width);
+    padding: 0 var(--carousel-padding);
     margin: 0 auto 75px;
 }
 
 .categories {
-    width: 930px;
-    margin: 0 auto;
     display: flex;
-    gap: 15px;
+    gap: var(--carousel-gap);
+
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
@@ -295,18 +303,23 @@ main {
 }
 
 .category {
-    flex: 0 0 300px;
-    height: 150px;
+    flex: 0 0 var(--category-width);
+    height: var(--category-height);
+
     border-radius: 10px;
     overflow: hidden;
     position: relative;
+
     scroll-snap-align: start;
+
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     cursor: pointer;
 }
 .category::after {

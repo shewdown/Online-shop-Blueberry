@@ -90,6 +90,7 @@
 }
 #form-reg .submit-btn {
     margin: 60px auto 0;
+    padding: 0 15px;
 }
 .form .submit-btn:hover {
     background-color: black;
